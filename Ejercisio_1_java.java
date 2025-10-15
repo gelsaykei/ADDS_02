@@ -336,7 +336,7 @@ total de ventas de contado, el total a crédito y el total general.
 se ingresan: número de historia clínica, edad, sexo y tipo de consulta
 (urgencia, control, general). El proceso termina cuando se ingrese un número
 de historia clínica igual a -1. Al finalizar, mostrar cuántas consultas fueron
-urgencias, controles y generales*/
+urgencias, controles y generales*//*
     String sexo, tc;
     int eda, nhc, contU=0, contC=0, contG=0;
         System.out.println("Ingrese el numero de historia clínica: ");
@@ -372,7 +372,39 @@ urgencias, controles y generales*/
         System.out.println("Ingrese el tipo de consulta: ");
         tc=dato.nextLine();
       }
-        System.out.println("El numero de tipo de consultas de urgencia fue "+contU+", de controles "+contC+" y generales es "+contG);
+        System.out.println("El numero de tipo de consultas de urgencia fue "+contU+", de controles "+contC+" y generales es "+contG);*/
+              /*18.Diseñar un algoritmo que lea los registros de consumo eléctrico de n hogares:
+    número de cuenta, kWh consumidos y estrato. El ciclo termina cuando se
+    ingrese un número de cuenta igual a cero. Al final mostrar el consumo total y
+    el promedio de kWh por hogar.*//*
+          String est;
+       int nc, kwh, cont=0, prom, sum=0;
+       
+       System.out.println("Ingrese su número de cuenta: ");
+       nc=dato.nextInt();
+       System.out.println("Ingrese el kwh consumidos: ");
+       kwh=dato.nextInt();
+       dato.nextLine();
+       System.out.println("Ingrese el estrato: ");
+       est=dato.nextLine();
+       while(nc!=0){
+           cont++;
+           sum+=kwh;
+             System.out.println("Ingrese su número de cuenta: ");
+            nc=dato.nextInt();
+            if(nc==0){
+                break;
+            }
+            System.out.println("Ingrese el kwh consumidos: ");
+            kwh=dato.nextInt();
+            dato.nextLine();
+            System.out.println("Ingrese el estrato: ");
+            est=dato.nextLine();
+       }
+        prom=sum/cont;
+        System.out.println("El consumo total es de " +sum);
+        System.out.println("El promedio de kwh por hohar es "+ prom);*/
+    
     }
 }
 
