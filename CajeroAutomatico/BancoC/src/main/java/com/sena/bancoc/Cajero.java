@@ -1,6 +1,5 @@
 package com.sena.bancoc;
 
-import java.util.Locale;
 import java.util.Random;
 import javax.swing.JOptionPane;
 //REQISITOS FUNCIONALES
@@ -74,6 +73,8 @@ public class Cajero {
                         retirarD();
                         break;
                     case 4:
+                        salir();
+                        break;
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error", "Ingrese numero de 1 a 4", JOptionPane.ERROR_MESSAGE);
@@ -104,31 +105,86 @@ public class Cajero {
                 .append(String.format("%,d", saldo));
         JOptionPane.showMessageDialog(null, mensaje, "Consultar saldo",
                 JOptionPane.INFORMATION_MESSAGE);
-
     }
 
     public void consignarSal() {
         //no ingreso de monedas
         JOptionPane.showMessageDialog(null, "No se permite el ingreso de monedas\n", "Precausión", JOptionPane.WARNING_MESSAGE);
-        String consgS = JOptionPane.showInputDialog(null, "¿Cuanto desea consignar? \n", "Consignar Saldo", JOptionPane.INFORMATION_MESSAGE);
-        int saldoConsig = Integer.parseInt(consgS);
-        if(saldoConsig%10000==0){
-            saldo+=saldoConsig;
-        } else{
-            JOptionPane.showMessageDialog(null, "No se permiten consignas menores a 10.000", "Error", JOptionPane.ERROR_MESSAGE);
+        try {
+            String consgS = JOptionPane.showInputDialog(null, "¿Cuanto desea consignar? \n", "Consignar Saldo", JOptionPane.INFORMATION_MESSAGE);
+            if (consgS == null) {
+                if (confirmarsalida()) {
+                    continuar = false;
+                    return;
+                }
+                
+            }
+            int saldoConsig = Integer.parseInt(consgS);
+
+            if (saldoConsig % 10000 == 0) {
+                saldo += saldoConsig;
+                String validacion = idRamdom();
+                StringBuilder mensaje = new StringBuilder("Aperación exitosa\n\n");
+                mensaje.append(validacion)
+                        .append("Saldo: $")
+                        .append(String.format("%,d", saldo));
+                JOptionPane.showMessageDialog(null, mensaje, "Nuevo saldo",
+                        JOptionPane.INFORMATION_MESSAGE);
+                }else if(saldoConsig%10000!=0){
+                JOptionPane.showMessageDialog(null, "No se permite monedas", "Error", JOptionPane.ERROR_MESSAGE);               
             
+            } else if(saldoConsig>10000){
+                JOptionPane.showMessageDialog(null, "No se permiten consignas menores a 10.000", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error", "Ingrese una consigna mayor a $10.000", JOptionPane.ERROR_MESSAGE);
         }
-        
     }
-    public void retirarD(){
-        String retiroS = JOptionPane.showInputDialog(null, "¿Cuanto desea retirar? \n", "Retirar Saldo", JOptionPane.INFORMATION_MESSAGE);
-        int retiroSaldo= Integer.parseInt(retiroS);
-        if(retiroSaldo%10000==0){
-            saldo-=retiroSaldo;
-        } else{
-            JOptionPane.showMessageDialog(null, "No se permiten retiros menores a 10.000", "Error", JOptionPane.ERROR_MESSAGE);
-            
+
+    public void retirarD() {
+        try {
+            String retiroS = JOptionPane.showInputDialog(null, "¿Cuanto desea retirar? \n", "Retirar Saldo", JOptionPane.INFORMATION_MESSAGE);
+            if (retiroS == null) {
+                if (confirmarsalida()) {
+                    continuar = false;
+                    return;
+                }
+            }
+            int retiroSaldo = Integer.parseInt(retiroS);
+
+            if (retiroSaldo % 10000 == 0) {
+
+                if (retiroSaldo <= saldo) {
+                    saldo -= retiroSaldo;
+                    String validacion = idRamdom();
+                    StringBuilder mensaje = new StringBuilder("Aperación exitosa\n\n");
+                    mensaje.append(validacion)
+                            .append("Saldo: $")
+                            .append(String.format("%,d", saldo))
+                            .append("\nSaldo retirado: $")
+                            .append(retiroSaldo);
+                    JOptionPane.showMessageDialog(null, mensaje, "Nuevo saldo",
+                            JOptionPane.INFORMATION_MESSAGE);
+                
+                } else if (retiroSaldo > saldo) {
+                    JOptionPane.showMessageDialog(null, "El valor a retirar es mayor al saldo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                }else if (retiroSaldo%10000!=0){ 
+                JOptionPane.showMessageDialog(null, "No se permite monedas", "Error", JOptionPane.ERROR_MESSAGE);                              
+            } else if (retiroSaldo < 10000) {
+                JOptionPane.showMessageDialog(null, "No se permiten retiros menores a 10.000", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error", "Ingrese un retiro mayor a 10.000", JOptionPane.ERROR_MESSAGE);
+
         }
-        
+    }
+
+    public void salir() {
+        if (confirmarsalida()) {
+            continuar = false;
+        }
     }
 }
