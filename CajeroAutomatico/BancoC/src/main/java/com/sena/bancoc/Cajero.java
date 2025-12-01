@@ -96,7 +96,17 @@ public class Cajero {
         return "ID por operación #" + numero + "\n";  //quiere decir que se realiza la operacion internamente y cuando se termine envia la operacion realizada.
 
     }
-
+     public void mostrarInformacion(){
+        String validacion = idRamdom();
+               StringBuilder mensaje = new StringBuilder("Aperación exitosa\n\n");
+                mensaje.append(validacion)
+                        .append("Saldo: $")
+                        .append(String.format("%,d", saldo));
+                JOptionPane.showMessageDialog(null, mensaje, "Nuevo saldo",
+                  JOptionPane.INFORMATION_MESSAGE);
+        
+    }
+     
     public void saldoActual() {//consultar, consignar, o retirar son con void
         String validacion = idRamdom();
         StringBuilder mensaje = new StringBuilder("Consultar saldo actual\n\n");
@@ -106,7 +116,7 @@ public class Cajero {
         JOptionPane.showMessageDialog(null, mensaje, "Consultar saldo",
                 JOptionPane.INFORMATION_MESSAGE);
     }
-
+    
     public void consignarSal() {
         //no ingreso de monedas
         JOptionPane.showMessageDialog(null, "No se permite el ingreso de monedas\n", "Precausión", JOptionPane.WARNING_MESSAGE);
@@ -116,20 +126,14 @@ public class Cajero {
                 if (confirmarsalida()) {
                     continuar = false;
                     return;
-                }
-                
+                }                
             }
             int saldoConsig = Integer.parseInt(consgS);
-
+            
+            
             if (saldoConsig % 10000 == 0) {
                 saldo += saldoConsig;
-                String validacion = idRamdom();
-                StringBuilder mensaje = new StringBuilder("Aperación exitosa\n\n");
-                mensaje.append(validacion)
-                        .append("Saldo: $")
-                        .append(String.format("%,d", saldo));
-                JOptionPane.showMessageDialog(null, mensaje, "Nuevo saldo",
-                        JOptionPane.INFORMATION_MESSAGE);
+                mostrarInformacion();
                 }else if(saldoConsig%10000!=0){
                 JOptionPane.showMessageDialog(null, "No se permite monedas", "Error", JOptionPane.ERROR_MESSAGE);               
             
@@ -141,7 +145,7 @@ public class Cajero {
             JOptionPane.showMessageDialog(null, "Error", "Ingrese una consigna mayor a $10.000", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+   
     public void retirarD() {
         try {
             String retiroS = JOptionPane.showInputDialog(null, "¿Cuanto desea retirar? \n", "Retirar Saldo", JOptionPane.INFORMATION_MESSAGE);
@@ -152,20 +156,16 @@ public class Cajero {
                 }
             }
             int retiroSaldo = Integer.parseInt(retiroS);
-
-            if (retiroSaldo % 10000 == 0) {
-
+            int retiro=0;
+                    retiro+=retiroSaldo;
+                    if(retiro>retiroD){
+                     JOptionPane.showMessageDialog(null, "Usted tiene un limite de retiros diarios de $"+retiroD,"Limite diario",JOptionPane.ERROR_MESSAGE );
+                     return;
+                    }
+            if (retiroSaldo % 10000 == 0) {  
                 if (retiroSaldo <= saldo) {
                     saldo -= retiroSaldo;
-                    String validacion = idRamdom();
-                    StringBuilder mensaje = new StringBuilder("Aperación exitosa\n\n");
-                    mensaje.append(validacion)
-                            .append("Saldo: $")
-                            .append(String.format("%,d", saldo))
-                            .append("\nSaldo retirado: $")
-                            .append(retiroSaldo);
-                    JOptionPane.showMessageDialog(null, mensaje, "Nuevo saldo",
-                            JOptionPane.INFORMATION_MESSAGE);
+                    mostrarInformacion();
                 
                 } else if (retiroSaldo > saldo) {
                     JOptionPane.showMessageDialog(null, "El valor a retirar es mayor al saldo", "Error", JOptionPane.ERROR_MESSAGE);
