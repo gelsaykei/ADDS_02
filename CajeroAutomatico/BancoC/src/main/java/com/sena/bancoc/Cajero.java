@@ -125,7 +125,7 @@ public class Cajero {
         //no ingreso de monedas
         JOptionPane.showMessageDialog(null, "No se permite el ingreso de monedas\n", "Precausión", JOptionPane.WARNING_MESSAGE);
         try {
-            StringBuilder menu = new StringBuilder("====Retirar Saldo====\n\n"); //StringBuilder es para poner  arios mensajes reducioendo el espacio de memoria, con el String normal por cada mensaje se crearia un espacio de memoria.
+            StringBuilder menu = new StringBuilder("====Consignar Saldo====\n\n"); //StringBuilder es para poner  arios mensajes reducioendo el espacio de memoria, con el String normal por cada mensaje se crearia un espacio de memoria.
             menu.append("Seleccione una opción del 1 al 9 así: \n")
                     .append("1. 20.000 \n")
                     .append("2. 50.000 \n")
