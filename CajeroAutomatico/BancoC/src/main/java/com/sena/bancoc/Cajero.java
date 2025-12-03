@@ -126,7 +126,7 @@ public class Cajero {
         JOptionPane.showMessageDialog(null, "No se permite el ingreso de monedas\n", "Precausión", JOptionPane.WARNING_MESSAGE);
         try {
             StringBuilder menu = new StringBuilder("====Retirar Saldo====\n\n"); //StringBuilder es para poner  arios mensajes reducioendo el espacio de memoria, con el String normal por cada mensaje se crearia un espacio de memoria.
-            menu.append("Seleccione una opción del 1 al 4 así: \n")
+            menu.append("Seleccione una opción del 1 al 9 así: \n")
                     .append("1. 20.000 \n")
                     .append("2. 50.000 \n")
                     .append("3. 100.000 \n")
@@ -179,7 +179,7 @@ public class Cajero {
                     mostrarInformacion();
                     break;
                 case 9:
-                    String consigna = JOptionPane.showInputDialog(null, "Ingrese cuanto va a consignar: ", "Saldo diferente", JOptionPane.INFORMATION_MESSAGE);
+                    String consigna = JOptionPane.showInputDialog(null, "Ingrese cuanto va a consignar.\n\nCon números así => 10000", "Saldo diferente", JOptionPane.INFORMATION_MESSAGE);
                     montonConsigna = Integer.parseInt(consigna);
                     if (montonConsigna % 5000 == 0 && montonConsigna >= 10000) {
                         saldo += montonConsigna;
@@ -194,14 +194,14 @@ public class Cajero {
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error", "Ingrese una consigna mayor a $10.000", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error", "Ingrese lo solicitado", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void retirarD() {
         try {
             StringBuilder menu = new StringBuilder("====Retirar Saldo====\n\n"); //StringBuilder es para poner  arios mensajes reducioendo el espacio de memoria, con el String normal por cada mensaje se crearia un espacio de memoria.
-            menu.append("Seleccione una opción del 1 al 4 así: \n")
+            menu.append("Seleccione una opción del 1 al 9 así: \n")
                     .append("1. 20.000 \n")
                     .append("2. 50.000 \n")
                     .append("3. 100.000 \n")
@@ -262,15 +262,16 @@ public class Cajero {
 
                     break;
                 case 9:
-                    String retirar = JOptionPane.showInputDialog(null, "Ingrese cuanto va a retirar", "Saldo diferente", JOptionPane.INFORMATION_MESSAGE);
+                    String retirar = JOptionPane.showInputDialog(null, "Ingrese cuanto va a retirar.\nCon números así => 10000", "Saldo diferente", JOptionPane.INFORMATION_MESSAGE);
                     montonRetirar = Integer.parseInt(retirar);
                     break;
+                  
             }
             sumaretiro += montonRetirar;
             montonaRetirar();
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error", "Ingrese un número entre las opciones del 1 al 9", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error", "Ingrese lo solicitado", JOptionPane.ERROR_MESSAGE);
 
         }
     }
