@@ -78,15 +78,13 @@ public class Cajero {
                     case 4:
                         salir();
                         break;
-                        default:
-                        JOptionPane.showMessageDialog(null, "Opcion ingresada invalida, \ningrese uno del 1 al 4","Error", JOptionPane.ERROR_MESSAGE);
+                    default:
+                        JOptionPane.showMessageDialog(null, "Opcion ingresada invalida, \ningrese uno del 1 al 4", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error", "Ingrese numero de 1 a 4", JOptionPane.ERROR_MESSAGE);
-
             }
-
         }
     }
 
@@ -193,12 +191,10 @@ public class Cajero {
                         JOptionPane.showMessageDialog(null, "No se permiten consignas menores a 10.000.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Opcion ingresada invalida, \ningrese uno del 1 al 9","Error", JOptionPane.ERROR_MESSAGE);
-                        break;
-
+                default:
+                    JOptionPane.showMessageDialog(null, "Opcion ingresada invalida, \ningrese uno del 1 al 9", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
             }
-
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error", "Ingrese lo solicitado", JOptionPane.ERROR_MESSAGE);
         }
@@ -218,86 +214,71 @@ public class Cajero {
                     .append("8. 600.000\n")
                     .append("9. Saldo diferente\n");
             String opcion = JOptionPane.showInputDialog(null, menu, "Cajero Automático", JOptionPane.QUESTION_MESSAGE);
-            
             if (opcion == null) {
                 if (confirmarsalida()) {
                     continuar = false;
                     return;
                 }
             }
-
             int opc = Integer.parseInt(opcion);
-            
+
             switch (opc) {
                 case 1:
                     montonRetirar = 20000;
-
+                    montonaRetirar();
                     break;
                 case 2:
                     montonRetirar = 50000;
-
+                    montonaRetirar();
                     break;
                 case 3:
-
                     montonRetirar = 100000;
-
+                    montonaRetirar();
                     break;
                 case 4:
-
                     montonRetirar = 200000;
-
+                    montonaRetirar();
                     break;
                 case 5:
-
                     montonRetirar = 300000;
-
+                    montonaRetirar();
                     break;
                 case 6:
-
                     montonRetirar = 400000;
-
+                    montonaRetirar();
                     break;
                 case 7:
-
                     montonRetirar = 500000;
-
+                    montonaRetirar();
                     break;
                 case 8:
-
                     montonRetirar = 600000;
-
+                    montonaRetirar();
                     break;
                 case 9:
                     String retirar = JOptionPane.showInputDialog(null, "Ingrese cuanto va a retirar.\nCon números así => 10000", "Saldo diferente", JOptionPane.INFORMATION_MESSAGE);
                     montonRetirar = Integer.parseInt(retirar);
+                    montonaRetirar();
                     break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Opcion ingresada invalida, \ningrese uno del 1 al 9","Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                       
+                default:
+                    JOptionPane.showMessageDialog(null, "Opcion ingresada invalida, \ningrese uno del 1 al 9", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            montonaRetirar();
-
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error", "Ingrese lo solicitado", JOptionPane.ERROR_MESSAGE);
-
         }
     }
-
     public void montonaRetirar() {
         if (sumaretiro <= retiroD) {
             sumaretiro += montonRetirar;
-        } else if (sumaretiro > retiroD) {
-            JOptionPane.showMessageDialog(null, "Usted tiene un limite de retiros diarios de $" + (String.format("%,d", retiroD)), "Limite diario", JOptionPane.ERROR_MESSAGE);
         }
-
+        if (sumaretiro > retiroD) {
+            JOptionPane.showMessageDialog(null, "Usted tiene un limite de retiros diarios de $" + (String.format("%,d", retiroD)), "Limite diario", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (montonRetirar % 5000 == 0 && montonRetirar >= 10000 && sumaretiro <= retiroD) {
             if (montonRetirar <= saldo) {
                 saldo -= montonRetirar;
-
                 mostrarInformacion();
-
             } else if (montonRetirar > saldo) {
                 JOptionPane.showMessageDialog(null, "El valor a retirar es mayor al saldo", "Error", JOptionPane.ERROR_MESSAGE);
             }
